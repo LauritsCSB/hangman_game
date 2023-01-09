@@ -48,13 +48,13 @@ namespace hangmanGame
                 }
                 Console.WriteLine(askForInput);
             }
-//TODO find way of comparing and inserting correctly quessed letter at certain index of guessingString
+//TODO Create loop that runs the code block below until the user either guesses the word or runs out of lives
             userGuess = userGuess.ToLower();
             for (int i = 0; i == secretWord.Length; i++)
             {
-                if (userGuess == secretWord[i])
+                if (userGuess.StartsWith(secretWord[i]))
                 {
-                    guessingString.Replace("_", userGuess);
+                    guessingString.ReplaceAt(i, 1, userGuess);
                 }
             }
 
