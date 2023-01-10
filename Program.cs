@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Runtime.InteropServices;
 
 namespace hangmanGame
@@ -14,50 +15,54 @@ namespace hangmanGame
             containing every string instead of initializing and empty array and append elements afterwards, i guess this makes it kind of hard to edit the
             selection, but its easier to read.
             */
-
             string[] wordsArray = { "property", "departure", "disk", "possession", "assignment", "goal", "year", "impression", "university", "information",
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
 
-            Random randomNumber = new Random(1, 26);
+            Random randomNumber = new Random();
             int wordIndex = randomNumber.Next(wordsArray.Length);
             string secretWord = wordsArray[wordIndex];
+            string userGuess = string.Empty;
 
-            string guessingString = string.Empty;
-            for (int i = 0; i == secretWord.Length; i++)
+            StringBuilder guessingString = new StringBuilder(secretWord.Length);
+
+            foreach (char i in secretWord)
             {
-                guessingString += "_";
-            }
+                guessingString.Append("_ ");
 
+            }
+            
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
                 $"You have {LIVES} wrong guesses untill the noose tightens and you loose the game!");
 
             string askForInput = "Please enter your guess and press enter: ";
-            Console.WriteLine(askForInput);
-            string userGuess = Console.ReadLine();
-
-            if (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
+            
+            while (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
             {
                 if (String.IsNullOrWhiteSpace(userGuess))
                 {
                     Console.WriteLine("There's no whitespace in the word");
                 }
-                if (userGuess.Length > 1)
+                else
                 {
                     Console.WriteLine("You can only enter one letter at a time");
                 }
                 Console.WriteLine(askForInput);
+                userGuess = Console.ReadLine();
             }
-//TODO Create loop that runs the code block below until the user either guesses the word or runs out of lives
+/*
+
+            
+//TODO Create loop that runs the code block below until the user either guesses the word or runs out of lives. NOTE: use stringbuilder class method (remove/ append)
             userGuess = userGuess.ToLower();
             for (int i = 0; i == secretWord.Length; i++)
             {
                 if (userGuess.StartsWith(secretWord[i]))
                 {
-                    guessingString.ReplaceAt(i, 1, userGuess);
+                    guessingString.Insert(i, userGuess);
+                    guessingString.Remove(i + 1, 1);
                 }
-            }
-
+            }*/
         }
     }
 }
