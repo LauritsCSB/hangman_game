@@ -6,7 +6,6 @@ namespace hangmanGame
 {
     internal class Program
     {
-        const int LIVES = 10;
         static void Main(string[] args)
         {
             /*
@@ -23,46 +22,59 @@ namespace hangmanGame
             int wordIndex = randomNumber.Next(wordsArray.Length);
             string secretWord = wordsArray[wordIndex];
             string userGuess = string.Empty;
+            string askForInput = "Please enter your guess and press enter: ";
+            int userLives = 10;
 
             StringBuilder guessingString = new StringBuilder(secretWord.Length);
 
             foreach (char i in secretWord)
             {
-                guessingString.Append("_ ");
+                guessingString.Append("_");
 
             }
             
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
-                $"You have {LIVES} wrong guesses untill the noose tightens and you loose the game!");
-
-            string askForInput = "Please enter your guess and press enter: ";
-            
-            while (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
+                $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!");
+            //TODO Figure this shit out!!!
+            //The program has to loop through every character of the word and check if it's equal to the user input, if yes, replace
+            while (checkerString.Contains("_") || userLives < 1)
             {
-                if (String.IsNullOrWhiteSpace(userGuess))
+                string checkerString = guessingString.ToString();
+
+                Console.WriteLine(askForInput);
+                userGuess = Console.ReadLine();
+                userGuess = userGuess.ToLower();
+
+                for (int i = 0; i >= secretWord.Length; i++)
+                {
+                    if (secretWord.Contains(userGuess)
+                    {
+                        guessingString.Replace("_", userGuess);
+                    }
+                }
+
+                if (secretWord.Contains(userGuess))
+                {
+                    guessingString[secretWord.IndexOf(userGuess)] = userGuess;
+                    guessingString.Insert(secretWord.IndexOf(userGuess), userGuess);
+                    guessingString.Remove(secretWord.IndexOf(userGuess) + 1, 1);
+                    //guessingString.Replace("_", userGuess, secretWord.IndexOf(userGuess), 1);
+                }
+                else if (String.IsNullOrWhiteSpace(userGuess))
                 {
                     Console.WriteLine("There's no whitespace in the word");
                 }
-                else
+                else if (userGuess.Length > 1)
                 {
                     Console.WriteLine("You can only enter one letter at a time");
                 }
-                Console.WriteLine(askForInput);
-                userGuess = Console.ReadLine();
-            }
-/*
-
-            
-//TODO Create loop that runs the code block below until the user either guesses the word or runs out of lives. NOTE: use stringbuilder class method (remove/ append)
-            userGuess = userGuess.ToLower();
-            for (int i = 0; i == secretWord.Length; i++)
-            {
-                if (userGuess.StartsWith(secretWord[i]))
+                else
                 {
-                    guessingString.Insert(i, userGuess);
-                    guessingString.Remove(i + 1, 1);
+                    userLives--;
                 }
-            }*/
+
+            Console.WriteLine(guessingString);
+            }
         }
     }
 }
