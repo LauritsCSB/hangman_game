@@ -18,62 +18,67 @@ namespace hangmanGame
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
 
+            int userLives = 15;
             Random randomNumber = new Random();
             int wordIndex = randomNumber.Next(wordsArray.Length);
             string secretWord = wordsArray[wordIndex];
+
             string userGuess = string.Empty;
             string askForInput = "Please enter your guess and press enter: ";
-            int userLives = 10;
+            string wrongInput = "Wrong input, try again!";
 
             StringBuilder guessingString = new StringBuilder(secretWord.Length);
-
             foreach (char i in secretWord)
             {
                 guessingString.Append("_");
-
             }
             
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
-                $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!");
-            //TODO Figure this shit out!!!
-            //The program has to loop through every character of the word and check if it's equal to the user input, if yes, replace
-            while (checkerString.Contains("_") || userLives < 1)
-            {
-                string checkerString = guessingString.ToString();
+                $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!\n" +
+                $"You can't use whitespace as input and you can only input one letter at a time. Have fun!");
 
+            while (guessingString.Equals(secretWord) == false)
+            {
                 Console.WriteLine(askForInput);
+                Console.WriteLine(secretWord);
                 userGuess = Console.ReadLine();
+                Console.Clear();
                 userGuess = userGuess.ToLower();
 
-                for (int i = 0; i >= secretWord.Length; i++)
+                if (guessingString.Equals(secretWord))
                 {
-                    if (secretWord.Contains(userGuess)
-                    {
-                        guessingString.Replace("_", userGuess);
-                    }
+                    Console.WriteLine($"Congratulations! you guessed it.\nThe right word was {secretWord}.");
+                    break;
                 }
 
                 if (secretWord.Contains(userGuess))
                 {
-                    guessingString[secretWord.IndexOf(userGuess)] = userGuess;
-                    guessingString.Insert(secretWord.IndexOf(userGuess), userGuess);
-                    guessingString.Remove(secretWord.IndexOf(userGuess) + 1, 1);
-                    //guessingString.Replace("_", userGuess, secretWord.IndexOf(userGuess), 1);
+                    for (int i = 0; i < secretWord.Length; i++)
+                    {
+                        if (userGuess.StartsWith(secretWord[i]))
+                        {
+                            guessingString.Replace("_", userGuess, i, 1);
+                        }
+                    }
                 }
-                else if (String.IsNullOrWhiteSpace(userGuess))
+                else if (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
                 {
-                    Console.WriteLine("There's no whitespace in the word");
-                }
-                else if (userGuess.Length > 1)
-                {
-                    Console.WriteLine("You can only enter one letter at a time");
+                    Console.WriteLine(wrongInput);
                 }
                 else
                 {
                     userLives--;
+                    Console.WriteLine($"Wrong answer! You have {userLives} lives left.");
                 }
 
-            Console.WriteLine(guessingString);
+
+                if (userLives < 1)
+                {
+                    Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
+                    break;
+                }
+
+                Console.WriteLine(guessingString);
             }
         }
     }
