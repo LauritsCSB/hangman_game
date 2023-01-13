@@ -9,11 +9,13 @@ namespace hangmanGame
         static void Main(string[] args)
         {
             /*
-            My idea is to initialize and array of strings and use the random class to pick an element and make the user guess the letters in the string (word).
-            I wanted a relatively large selection of randomly generated words to increase the challenge when playing the game. I chose to write out the array
-            containing every string instead of initializing and empty array and append elements afterwards, i guess this makes it kind of hard to edit the
-            selection, but its easier to read.
+            The program runs by generating a random number and using that to pick a word from the array at a random index.
+            As long as the "empty" guessing string isn't equal to the word pick from the array, the while loop runs.
+            If the user runs out of lives or if the word is guessed correctly, the while loop breaks.
+            A feature was added to check for whitespace and multiple characters in the same input, this wont be taken as a
+            wrong answer and the user gets a second chance.
             */
+
             string[] wordsArray = { "property", "departure", "disk", "possession", "assignment", "goal", "year", "impression", "university", "information",
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
@@ -40,16 +42,10 @@ namespace hangmanGame
             while (guessingString.Equals(secretWord) == false)
             {
                 Console.WriteLine(askForInput);
-                Console.WriteLine(secretWord);
                 userGuess = Console.ReadLine();
                 Console.Clear();
                 userGuess = userGuess.ToLower();
 
-                if (guessingString.Equals(secretWord))
-                {
-                    Console.WriteLine($"Congratulations! you guessed it.\nThe right word was {secretWord}.");
-                    break;
-                }
 
                 if (secretWord.Contains(userGuess))
                 {
@@ -78,7 +74,12 @@ namespace hangmanGame
                     break;
                 }
 
-                Console.WriteLine(guessingString);
+                Console.WriteLine($"Your guess: {guessingString}");
+            }
+
+            if (guessingString.Equals(secretWord))
+            {
+                Console.WriteLine($"Congratulations! you guessed it.\nThe right word was {secretWord}.");
             }
         }
     }
