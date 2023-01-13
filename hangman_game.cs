@@ -26,8 +26,6 @@ namespace hangmanGame
             string secretWord = wordsArray[wordIndex];
 
             string userGuess = string.Empty;
-            string askForInput = "Please enter your guess and press enter: ";
-            string wrongInput = "Wrong input, try again!";
 
             StringBuilder guessingString = new StringBuilder(secretWord.Length);
             foreach (char i in secretWord)
@@ -39,13 +37,11 @@ namespace hangmanGame
                 $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!\n" +
                 $"You can't use whitespace as input and you can only input one letter at a time. Have fun!");
 
-            while (guessingString.Equals(secretWord) == false)
+            while (!guessingString.Equals(secretWord))
             {
-                Console.WriteLine(askForInput);
-                userGuess = Console.ReadLine();
+                Console.WriteLine("Please enter your guess and press enter: ");
+                userGuess = Console.ReadLine().ToLower();
                 Console.Clear();
-                userGuess = userGuess.ToLower();
-
 
                 if (secretWord.Contains(userGuess))
                 {
@@ -59,7 +55,7 @@ namespace hangmanGame
                 }
                 else if (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
                 {
-                    Console.WriteLine(wrongInput);
+                    Console.WriteLine("Wrong input, try again!");
                 }
                 else
                 {
