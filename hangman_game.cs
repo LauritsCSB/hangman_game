@@ -4,6 +4,8 @@ namespace hangmanGame
 {
     internal class Program
     {
+        const int USER_LIVES = 15;
+
         static void Main(string[] args)
         {
             /*
@@ -22,17 +24,13 @@ namespace hangmanGame
             Random randomNumber = new Random();
             int wordIndex = randomNumber.Next(wordsArray.Length);
             string secretWord = wordsArray[wordIndex];
-
-            string userGuess = string.Empty;
+            string userGuess;
 
             StringBuilder guessingString = new StringBuilder(secretWord.Length);
-            foreach (char i in secretWord)
-            {
-                guessingString.Append("_");
-            }
+            guessingString.Append('_', secretWord.Length);
 
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
-                $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!\n" +
+                $"You have {USER_LIVES} wrong guesses untill the noose tightens and you loose the game!\n" +
                 $"You can't use whitespace as input and you can only input one letter at a time. Have fun!");
 
             while (!guessingString.Equals(secretWord))
@@ -57,12 +55,12 @@ namespace hangmanGame
                 }
                 else
                 {
-                    userLives--;
-                    Console.WriteLine($"Wrong answer! You have {userLives} lives left.");
+                    USER_LIVES--;
+                    Console.WriteLine($"Wrong answer! You have {USER_LIVES} lives left.");
                 }
 
 
-                if (userLives < 1)
+                if (USER_LIVES < 1)
                 {
                     Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
                     break;
@@ -73,7 +71,7 @@ namespace hangmanGame
 
             if (guessingString.Equals(secretWord))
             {
-                Console.WriteLine($"Congratulations! you guessed it.\nThe right word was {secretWord}.");
+                Console.WriteLine($"Congratulations! you guessed it.");
             }
         }
     }
