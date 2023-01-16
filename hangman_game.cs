@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Runtime.InteropServices;
+﻿using System.Text;
 
 namespace hangmanGame
 {
@@ -32,7 +30,7 @@ namespace hangmanGame
             {
                 guessingString.Append("_");
             }
-            
+
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
                 $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!\n" +
                 $"You can't use whitespace as input and you can only input one letter at a time. Have fun!");
