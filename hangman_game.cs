@@ -20,21 +20,21 @@ namespace hangmanGame
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
 
-            int userLives = 15;
+            int userLives = USER_LIVES;
             Random randomNumber = new Random();
             int wordIndex = randomNumber.Next(wordsArray.Length);
             string secretWord = wordsArray[wordIndex];
             string userGuess;
-            List<char> wrongGuesses = new List<char>();
+            List<string> wrongGuesses = new List<string>();
 
             StringBuilder guessingString = new StringBuilder(secretWord.Length);
             guessingString.Append('_', secretWord.Length);
 
             Console.WriteLine($"Hello user!\nThis is a hangman game. The program lets you guess the letters in a randomly chosen word.\n" +
-                $"You have {USER_LIVES} wrong guesses untill the noose tightens and you loose the game!\n" +
+                $"You have {userLives} wrong guesses untill the noose tightens and you loose the game!\n" +
                 $"You can't use whitespace as input and you can only input one letter at a time. Have fun!");
 
-            while (!guessingString.Equals(secretWord) && USER_LIVES > 1)
+            while (!guessingString.Equals(secretWord) && userLives > 1)
             {
                 Console.WriteLine("Please enter your guess and press enter: ");
                 userGuess = Console.ReadLine().ToLower();
@@ -56,18 +56,19 @@ namespace hangmanGame
                 }
                 else
                 {
-                    USER_LIVES--;
+                    userLives--;
                     wrongGuesses.Add(userGuess);
-                    Console.WriteLine($"Wrong answer! You have {USER_LIVES} lives left.");
+                    Console.WriteLine($"Wrong answer! You have {userLives} lives left.");
                 }
 
 
-                if (USER_LIVES < 1)
+                if (userLives < 1)
                 {
                     Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
                 }
 
-                Console.WriteLine($"Your guess: {guessingString}\nWrong guesses: {wrongGuesses}");
+                Console.Write($"Your guess: {guessingString}\nWrong guesses: ");
+                Console.Write(string.Join(", ", wrongGuesses));
             }
 
             if (guessingString.Equals(secretWord))
