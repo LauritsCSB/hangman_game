@@ -36,11 +36,17 @@ namespace hangmanGame
 
             while (!guessingString.Equals(secretWord) && userLives > 1)
             {
-                Console.WriteLine("Please enter your guess and press enter: ");
-                userGuess = Console.ReadLine().ToLower();
-                Console.Clear();
 
-                if (secretWord.Contains(userGuess))
+                Console.WriteLine("Please enter your guess and press enter: ");
+
+                userGuess = Console.ReadLine().ToLower();
+
+                if (wrongGuesses.Contains(userGuess))
+                {
+                    Console.WriteLine("You already tried that!");
+                    continue;
+                }
+                else if (secretWord.Contains(userGuess))
                 {
                     for (int i = 0; i < secretWord.Length; i++)
                     {
@@ -53,6 +59,7 @@ namespace hangmanGame
                 else if (String.IsNullOrWhiteSpace(userGuess) || userGuess.Length > 1)
                 {
                     Console.WriteLine("Wrong input, try again!");
+                    continue;
                 }
                 else
                 {
@@ -68,7 +75,7 @@ namespace hangmanGame
                 }
 
                 Console.Write($"Your guess: {guessingString}\nWrong guesses: ");
-                Console.Write(string.Join(", ", wrongGuesses));
+                Console.WriteLine(string.Join(", ", wrongGuesses));
             }
 
             if (guessingString.Equals(secretWord))
