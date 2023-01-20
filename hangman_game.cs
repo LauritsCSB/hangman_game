@@ -68,12 +68,6 @@ namespace hangmanGame
                     Console.WriteLine($"Wrong answer! You have {userLives} lives left.");
                 }
 
-
-                if (userLives < 1)
-                {
-                    Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
-                }
-
                 Console.Write($"Your guess: {guessingString}\nWrong guesses: ");
                 Console.WriteLine(string.Join(", ", wrongGuesses));
             }
@@ -82,6 +76,11 @@ namespace hangmanGame
             {
                 Console.WriteLine($"Congratulations! you guessed it.");
             }
+            else
+            {
+                Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
+            }
+
         }
     }
 }
