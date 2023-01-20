@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace hangmanGame
 {
@@ -15,7 +16,11 @@ namespace hangmanGame
             A feature was added to check for whitespace and multiple characters in the same input, this wont be taken as a
             wrong answer and the user gets a second chance.
             */
+            Start();
+        }
 
+        public static void Start()
+        {
             string[] wordsArray = { "property", "departure", "disk", "possession", "assignment", "goal", "year", "impression", "university", "information",
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
@@ -80,7 +85,6 @@ namespace hangmanGame
             {
                 Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
             }
-
         }
     }
 }
