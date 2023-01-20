@@ -85,6 +85,19 @@ namespace hangmanGame
             {
                 Console.WriteLine($"Sorry, you lost!\nThe right answer was {secretWord}.");
             }
+
+            Console.WriteLine("Do you want to play again? Type 'y' for yes and anything else for no, then press enter.");
+            string playOrNot = Console.ReadLine().ToLower();
+
+            if (playOrNot.Contains("y"))
+            {
+                Console.Clear();
+                Start();
+            }
+            else
+            {
+                Console.WriteLine("Bye!");
+            }
         }
     }
 }
