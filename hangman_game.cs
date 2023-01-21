@@ -13,11 +13,9 @@ namespace hangmanGame
                 "operation", "piano", "county", "woman", "negotiation", "son", "thing", "girl", "sympathy", "volume", "mood", "funeral", "administration",
                 "economics", "role" };
 
-
             Random randomNumber = new Random();
             string playOrNo = "x";
             string userGuess;
-
 
             do
             {
@@ -39,7 +37,6 @@ namespace hangmanGame
 
                 while (!guessingString.Equals(secretWord) && userLives > 1)
                 {
-
                     Console.WriteLine("Please enter your guess and press enter: ");
 
                     userGuess = Console.ReadLine().ToLower();
